@@ -655,6 +655,10 @@ void CommunicatorClass::slaveRefresh(PacketHandler *P)
         L<<Logger::Warning<<"Ignore domain "<< di.zone<<" since it has been removed from our backend"<<endl;
         continue;
     }
+    // Lets make sure that the backend on di exists by synchronizing it with the tempdi's backend.
+    if(!di.backend) {
+        di.backend = tempdi.backend;
+    }
 
     if(!ssr.d_freshness.count(di.id))
       continue;
